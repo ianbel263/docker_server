@@ -5,7 +5,7 @@ services:
     build:
       context: /home/ianbel/geekshop
       dockerfile: /home/ianbel/docker_server/Dockerfile
-    command: gunicorn geekshop.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn /home/ianbel/geekshop/geekshop.wsgi:application --bind 0.0.0.0:8000
     expose:
       - 8000
     volumes:
