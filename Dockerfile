@@ -24,7 +24,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade pip
-COPY ../geekshop/requirements.txt $APP_HOME
+COPY /home/ianbel/geekshop/requirements.txt $APP_HOME
 RUN pip install -r requirements.txt
 
 # копирование проекта Django
