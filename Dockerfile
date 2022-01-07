@@ -17,18 +17,18 @@ RUN mkdir $APP_HOME/static
 RUN mkdir $APP_HOME/media
 WORKDIR $APP_HOME
 
-# установка зависимостей и копирование из builder
+# установка зависимостей
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade pip
-COPY ./requirements.txt $APP_HOME
+COPY ../geekshop/requirements.txt $APP_HOME
 RUN pip install -r requirements.txt
 
 # копирование проекта Django
-COPY . $APP_HOME
+COPY /home/ianbel/geekshop $APP_HOME
 
 # изменение прав для пользователя app
 RUN chown -R django:www-data $APP_HOME
