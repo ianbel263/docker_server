@@ -4,7 +4,7 @@ services:
     container_name: geekshop_web
     build:
       context: /home/ianbel/geekshop
-      dockerfile: ./Dockerfile
+      dockerfile: /home/ianbel/docker_server/Dockerfile
     command: gunicorn geekshop.wsgi:application --bind 0.0.0.0:8000
     expose:
       - 8000
