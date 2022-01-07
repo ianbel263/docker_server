@@ -9,6 +9,9 @@ ENV PYTHONUNBUFFERED 1
 # создаем отдельного пользователя
 RUN useradd -g www-data -m django
 
+# каталог приложения на сервере
+ENV APP_LOCAL=/home/ianbel/geekshop
+
 # создание каталога для приложения
 ENV HOME=/home/django
 ENV APP_HOME=/home/django/web
@@ -24,11 +27,11 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade pip
-COPY /home/ianbel/geekshop/requirements.txt $APP_HOME
+COPY $APP_LOCAL/requirements.txt $APP_HOME
 RUN pip install -r requirements.txt
 
 # копирование проекта Django
-COPY /home/ianbel/geekshop $APP_HOME
+COPY $APP_LOCAL $APP_HOME
 
 # изменение прав для пользователя app
 RUN chown -R django:www-data $APP_HOME
