@@ -11,4 +11,4 @@ docker network create nginx-proxy
 docker volume create static
 docker volume create media
 docker-compose up --build -d
-./nginx_proxy/docker-compose up --build -d
+docker-compose -f ./nginx_proxy/docker-compose.yml up --build -d
