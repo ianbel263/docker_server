@@ -4,13 +4,10 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # создаем директорию для пользователя
-# RUN mkdir -p /home/django
+RUN mkdir -p /home/django
 
 # создаем отдельного пользователя
 RUN useradd -g www-data -m django
-
-# каталог приложения на сервере
-ENV APP_LOCAL=/home/ianbel/geekshop
 
 # создание каталога для приложения
 ENV HOME=/home/django
@@ -20,18 +17,18 @@ RUN mkdir $APP_HOME/static
 RUN mkdir $APP_HOME/media
 WORKDIR $APP_HOME
 
-# установка зависимостей
+# установка зависимостей и копирование из builder
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade pip
-COPY $APP_LOCAL/requirements.txt $APP_HOME
+COPY ./requirements.txt $APP_HOME
 RUN pip install -r requirements.txt
 
 # копирование проекта Django
-COPY $APP_LOCAL $APP_HOME
+COPY . $APP_HOME
 
 # изменение прав для пользователя app
 RUN chown -R django:www-data $APP_HOME
